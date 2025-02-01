@@ -18,8 +18,6 @@ This repository contains a script that automates the setup of a customized macOS
 Download and run the script directly:
 ```bash
 curl -O https://raw.githubusercontent.com/Lee-Robinson/mac-terminal-setup/main/setup.sh
-chmod +x setup.sh
-./setup.sh
 ```
 
 Or download the ZIP:
