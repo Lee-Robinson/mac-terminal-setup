@@ -17,12 +17,24 @@ print_error() {
     echo -e "\033[1;31m✗ $1\033[0m"
 }
 
+# Initialize Homebrew
+init_homebrew() {
+    print_message "Initializing Homebrew..."
+    
+    # These are the commands shown in the Homebrew output
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    
+    print_success "Homebrew initialized"
+}
+
 # Check if Homebrew is installed
 check_homebrew() {
     print_message "Checking for Homebrew..."
     if ! command -v brew &> /dev/null; then
         print_message "Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        init_homebrew
     else
         print_success "Homebrew is already installed"
     fi
@@ -127,6 +139,7 @@ main() {
     print_message "Starting macOS Terminal Setup..."
     
     check_homebrew
+    source $HOME/.zprofile  # Load Homebrew environment
     install_warp
     setup_catppuccin
     install_font
@@ -137,6 +150,7 @@ main() {
     print_message "Don't forget to:"
     echo "1. Open Warp and set Hack Nerd Font in preferences"
     echo "2. Select your preferred Catppuccin theme in Warp settings (⌘ + ,)"
+    echo "3. Restart your terminal or run: source $HOME/.zprofile"
 }
 
 # Run the script
